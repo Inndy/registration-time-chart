@@ -7,8 +7,6 @@
   <script src='https://cdnjs.cloudflare.com/ajax/libs/dygraph/1.1.1/dygraph-combined.js'></script>
   <script>
     var url = location.href.replace(/index\.html?/, '').replace(/#/, '');
-    var confname = url.substring(url.lastIndexOf('/')+1).replace(/\.json/, '').toUpperCase();
-    document.title = confname + " Registration Time Chart"
     var xhr = new XMLHttpRequest();
     xhr.onload = xhr_loaded;
     xhr.open('GET', url, true);
@@ -26,7 +24,7 @@
         }
       }
 
-      g = new Dygraph(document.getElementById("chart"), data, {title: confname + " Registration Time Chart"});
+      g = new Dygraph(document.getElementById("chart"), data, {});
       }
 
     function resetZoom() {
