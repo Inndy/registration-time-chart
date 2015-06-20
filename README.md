@@ -34,3 +34,7 @@ Nothing to explain. Read the code.
 ## License
 
 Public Domain
+
+## Contributors
+
+- @pcchou
