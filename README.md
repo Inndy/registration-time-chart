@@ -2,7 +2,7 @@
 
 ## Example
 
-[http://inndy.github.io/registration-time-chart/#coscup2015.json](http://inndy.github.io/registration-time-chart/#coscup2015.json)
+[http://pcchou.github.io/registration-time-chart/#coscup2015.json](http://pcchou.github.io/registration-time-chart/#coscup2015.json)
 
 ## Data Schema
 
