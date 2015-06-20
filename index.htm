@@ -1,40 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Registration Time Chart</title>
-  <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js'></script>
-  <script src='https://cdnjs.cloudflare.com/ajax/libs/dygraph/1.1.1/dygraph-combined.js'></script>
-  <script>
-    var url = location.href.replace(/index\.html?/, '').replace(/#/, '');
-    var xhr = new XMLHttpRequest();
-    xhr.onload = xhr_loaded;
-    xhr.open('GET', url, true);
-    xhr.send();
+    <head>
+        <meta charset="UTF-8">
+        <title>Registration Time Chart</title>
+        <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js'></script>
+        <script src='https://cdnjs.cloudflare.com/ajax/libs/dygraph/1.1.1/dygraph-combined.js'></script>
+        <script>
+            var url = location.href.replace(/index\.html?/, '').replace(/#/, '');
+            var xhr = new XMLHttpRequest();
+            xhr.onload = xhr_loaded;
+            xhr.open('GET', url, true);
+            xhr.send();
 
-    var g;
-    function xhr_loaded() {
-      if (this.readyState != 4 || this.status != 200) {
-        document.body.innerHTML = 'Request Error';
-      } else {
-        var f = (JSON && JSON.parse) || (function (s) { return eval('(' + s + ')') });
-        var data = f(this.responseText);
-        for (var i = 0; i < data.length; i++) {
-          data[i][0] = new Date(data[i][0] * 1000);
-        }
-      }
+            var g;
+            function xhr_loaded() {
+                if (this.readyState != 4 || this.status != 200) {
+                    document.body.innerHTML = 'Request Error';
+                } else {
+                    var f = (JSON && JSON.parse) || (function (s) { return eval('(' + s + ')') });
+                    var data = f(this.responseText);
+                    for (var i = 0; i < data.length; i++) {
+                        data[i][0] = new Date(data[i][0] * 1000);
+                    }
+                }
 
-      g = new Dygraph(document.getElementById("chart"), data, {fillGraph: true});
-      }
+                g = new Dygraph(document.getElementById("chart"), data, {fillGraph: true});
+            }
 
-    function resetZoom() {
-      g.updateOptions({
-        dateWindow: null,
-        valueRange: null})
-    }
-  </script>
-</head>
-<body>
-  <div id="chart" style="width: 1280px; height: 610px" ondblclick="resetZoom()"></div>
-</body>
+            function resetZoom() {
+                g.updateOptions({
+                    dateWindow: null,
+                    valueRange: null})
+            }
+        </script>
+    </head>
+    <body>
+        <div id="chart" style="width: 1280px; height: 610px" ondblclick="resetZoom()"></div>
+    </body>
 </html>
