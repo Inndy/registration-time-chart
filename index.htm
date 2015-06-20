@@ -5,6 +5,9 @@
         <title>Registration Time Chart</title>
         <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js'></script>
         <script src='https://cdnjs.cloudflare.com/ajax/libs/dygraph/1.1.1/dygraph-combined.js'></script>
+    </head>
+    <body>
+        <div id="chart" style="width: 1280px; height: 610px"></div>
         <script>
             var url = location.href.replace(/index\.html?/, '').replace(/#/, '');
             var xhr = new XMLHttpRequest();
@@ -12,7 +15,6 @@
             xhr.open('GET', url, true);
             xhr.send();
 
-            var g;
             function xhr_loaded() {
                 if (this.readyState != 4 || this.status != 200) {
                     document.body.innerHTML = 'Request Error';
@@ -24,17 +26,15 @@
                     }
                 }
 
-                g = new Dygraph(document.getElementById("chart"), data, {fillGraph: true});
+                var graph = new Dygraph(chart, data, { 'fillGraph': true });
+                chrat.addEventListener('dblclick', function () {
+                    graph.updateOptions({
+                        'dateWindow': null,
+                        'valueRange': null
+                    });
+                });
             }
 
-            function resetZoom() {
-                g.updateOptions({
-                    dateWindow: null,
-                    valueRange: null})
-            }
         </script>
-    </head>
-    <body>
-        <div id="chart" style="width: 1280px; height: 610px" ondblclick="resetZoom()"></div>
     </body>
 </html>
