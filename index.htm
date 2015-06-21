@@ -27,7 +27,7 @@
                 }
 
                 var graph = new Dygraph(chart, data, { 'fillGraph': true });
-                chrat.addEventListener('dblclick', function () {
+                chart.addEventListener('dblclick', function () {
                     graph.updateOptions({
                         'dateWindow': null,
                         'valueRange': null
