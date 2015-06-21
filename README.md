@@ -37,4 +37,4 @@ Public Domain
 
 ## Contributors
 
-- @pcchou
+- [pcchou](https://github.com/pcchou)
