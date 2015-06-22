@@ -22,34 +22,55 @@
         <script src='https://cdnjs.cloudflare.com/ajax/libs/dygraph/1.1.1/dygraph-combined.js'></script>
     </head>
     <body>
-        <div id="chart"></div>
+        <div id="chart">Waiting...</div>
         <script>
-            var url = location.href.replace(/index\.html?/, '').replace(/#/, '');
-            var xhr = new XMLHttpRequest();
-            xhr.onload = xhr_loaded;
-            xhr.open('GET', url, true);
-            xhr.send();
-
-            function xhr_loaded() {
-                if (this.readyState != 4 || this.status != 200) {
-                    document.body.innerHTML = 'Request Error';
-                } else {
-                    var f = (JSON && JSON.parse) || (function (s) { return eval('(' + s + ')') });
-                    var data = f(this.responseText);
-                    for (var i = 0; i < data.length; i++) {
-                        data[i][0] = new Date(data[i][0] * 1000);
-                    }
+            function load_data(url)
+            {
+                window.last_request = window.last_request || null;
+                if (window.last_request) {
+                    window.last_request.abort();
                 }
 
-                var graph = new Dygraph(chart, data, { 'fillGraph': true });
-                chart.addEventListener('dblclick', function () {
-                    graph.updateOptions({
-                        'dateWindow': null,
-                        'valueRange': null
-                    });
-                });
+                var xhr = new XMLHttpRequest();
+                xhr.onload = function () {
+                    console.log(this.readyState);
+                    console.log(this.status);
+                    if (this.readyState != 4 || this.status != 200) {
+                        chart.innerHTML = 'Request Error: ' + this.statusText;
+                    } else {
+                        var f = (JSON && JSON.parse) || (function (s) { return eval('(' + s + ')') });
+                        var data = f(this.responseText);
+                        for (var i = 0; i < data.length; i++) {
+                            data[i][0] = new Date(data[i][0] * 1000);
+                        }
+                        var graph = new Dygraph(chart, data, { 'fillGraph': true });
+                        chart.addEventListener('dblclick', function () {
+                            graph.updateOptions({
+                                'dateWindow': null,
+                                'valueRange': null
+                            });
+                        });
+                    }
+                };
+                xhr.open('GET', url, true);
+                xhr.send();
+                window.last_request = xhr;
             }
 
+            function load_hash_url()
+            {
+                if (location.hash.substr(1) != '') {
+                    load_data(location.href.replace(/index\.html?/, '').replace(/#/, ''));
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+
+            window.addEventListener('hashchange', load_hash_url);
+            if (!load_hash_url()) {
+                chart.innerHTML = 'No data to show';
+            }
         </script>
     </body>
 </html>
