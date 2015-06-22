@@ -3,11 +3,26 @@
     <head>
         <meta charset="UTF-8">
         <title>Registration Time Chart</title>
+        <style>
+            html, body
+            {
+                margin: 0;
+                padding: 0;
+            }
+
+            #chart
+            {
+                width: 100%;
+                height: 100%;
+                width: 100wh;
+                height: 100vh;
+            }
+        </style>
         <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js'></script>
         <script src='https://cdnjs.cloudflare.com/ajax/libs/dygraph/1.1.1/dygraph-combined.js'></script>
     </head>
     <body>
-        <div id="chart" style="width: 1280px; height: 610px"></div>
+        <div id="chart"></div>
         <script>
             var url = location.href.replace(/index\.html?/, '').replace(/#/, '');
             var xhr = new XMLHttpRequest();
